@@ -1,3 +1,4 @@
+// src/pages/auth/SignUp.jsx
 import React, { useContext, useState } from "react";
 import AuthLayout from "../../components/layouts/AuthLayout";
 import { Link, useNavigate } from "react-router-dom";
@@ -60,8 +61,13 @@ function SignUp() {
   return (
     <AuthLayout>
       <div className="lg:w-2/3 mx-auto h-full mt-10 flex flex-col justify-center px-6">
-        <h3 className="text-2xl font-bold text-gray-900">Create an Account</h3>
-        <p className="text-sm text-gray-600 mt-2 mb-6">
+        {/* App Title */}
+        <h1 className="text-4xl font-extrabold text-green-600 text-center mb-6">
+          DhanSuraksha 💰🔒
+        </h1>
+
+        <h3 className="text-2xl font-bold text-gray-900 text-center">Create an Account</h3>
+        <p className="text-sm text-gray-600 mt-2 mb-6 text-center">
           Join us today by entering your details below.
         </p>
 
