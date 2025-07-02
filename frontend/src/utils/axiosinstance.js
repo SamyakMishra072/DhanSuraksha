@@ -1,8 +1,8 @@
+// src/utils/axiosinstance.js
 import axios from "axios";
-import {BASE_URL} from "./apiPaths";
 
 const axiosInstance = axios.create({
-  baseURL: BASE_URL,
+  baseURL: import.meta.env.VITE_BASE_URL,
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
@@ -19,23 +19,19 @@ axiosInstance.interceptors.request.use(
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
+
 // Response Interceptor
 axiosInstance.interceptors.response.use(
-  (response) => {
-    return response;
-  },
+  (response) => response,
   (error) => {
-    // Handle common errors globally
     if (error.response) {
-      if (error.response.status === 401) {
-        // Redirect to login page
+      const { status } = error.response;
+      if (status === 401) {
+        localStorage.removeItem("token");
         window.location.href = "/login";
-        localStorage.removeItem("token"); // Clear invalid token
-      } else if (error.response.status === 500) {
+      } else if (status === 500) {
         console.error("Server error:", error.response.data);
       }
     } else if (error.code === "ECONNABORTED") {
@@ -46,4 +42,5 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
 export default axiosInstance;
